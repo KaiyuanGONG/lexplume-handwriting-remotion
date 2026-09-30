@@ -1,54 +1,47 @@
-# Remotion video
+# LeXplume Handwriting Animation
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.apng">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+A frame-driven Remotion recreation of the 3.37-second **Handwriting Animation** motion study: a feather writes the LeXplume wordmark, the ink drains back toward the nib, and the feather folds into the Semantic Fold logo.
 
-Welcome to your Remotion project!
+![Handwriting animation preview](docs/preview.png)
 
-## Commands
+## Run
 
-**Install Dependencies**
-
-```console
-npm i
-```
-
-**Start Preview**
-
-```console
+```sh
+npm ci
 npm run dev
 ```
 
-**Render video**
+Open the Studio URL printed by the command and select **HandwritingAnimation**.
 
-```console
-npx remotion render
+## Render
+
+```sh
+npm run render
+# Output: out/handwriting-animation.mp4
+npm run still
+npm run lint
+npm run typecheck
 ```
 
-**Upgrade Remotion**
+The default composition is **1920 × 1080, 30 fps, 101 frames**, with no audio (the reference audio track is silent). Rendering requires no external service or API key.
 
-```console
-npx remotion upgrade
+## Edit and remix
+
+Change `backgroundColor`, `inkColor`, `durationSeconds`, or `showSkip` in the composition defaults in `src/Root.tsx`, or supply Remotion props:
+
+```sh
+npx remotion render src/index.ts HandwritingAnimation out/remix.mp4 --props='{"backgroundColor":"#f3f0e9","inkColor":"#29251e","durationSeconds":5,"showSkip":false}'
 ```
 
-## Docs
+`src/Composition.tsx` builds the scene from editable SVG paths, masks and groups. `useCurrentFrame()` and `interpolate()` select and interpolate vector attributes and feather poses. It contains no GSAP runtime, CSS animation, video replay, or screenshot sequence.
 
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
+`src/data/vector-scene.json` holds the sampled vector motion tracks from the original LeXplume animation. The original quill, writing path, wordmark and logo SVGs are included in `public/artwork/` as editable source material. These preserve the hand-drawn glyph and nib geometry precisely. Retiming the scene interpolates the existing vector tracks; replacing lettering requires corresponding replacement paths and masks.
 
-## Help
+## Provenance
 
-We provide help on our [Discord server](https://discord.gg/6VzzNDwUwV).
+- Product and brand artwork: [LeXplume](https://lexplume.com/).
+- Motion Face recording: [Handwriting Animation](https://motionface.cc/?recording=88ad9830-075a-4017-a145-adfead5cbee3).
+- Reference duration: 3.37 seconds. The composition stops at the formed logo, matching the uploaded clip.
+- Signed download URLs, binding credentials, reference footage, local review files and rendered output are excluded from this repository.
 
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+Source is published for this motion study. The LeXplume name and brand artwork remain their owner's assets; no third-party trademark permission is implied.

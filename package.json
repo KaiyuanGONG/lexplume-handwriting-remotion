@@ -1,17 +1,18 @@
 {
   "name": "handwriting-animation",
   "version": "1.0.0",
-  "description": "My Remotion video",
-  "repository": {},
+  "description": "Frame-driven Remotion recreation of LeXplume feather handwriting and logo morph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KaiyuanGONG/lexplume-handwriting-remotion.git"
+  },
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.530",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remotion": "4.0.530",
-    "@remotion/tailwind-v4": "4.0.530",
-    "tailwindcss": "4.0.0"
+    "remotion": "4.0.530"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.530",
@@ -22,10 +23,12 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "dev": "remotion studio",
+    "dev": "remotion studio --no-open",
     "build": "remotion bundle",
-    "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "render": "remotion render src/index.ts HandwritingAnimation out/handwriting-animation.mp4 --codec=h264 --crf=16 --pixel-format=yuv420p",
+    "still": "remotion still src/index.ts HandwritingAnimation out/preview.png --frame=45",
+    "lint": "eslint src && tsc --noEmit",
+    "typecheck": "tsc --noEmit"
   },
   "sideEffects": [
     "*.css"
